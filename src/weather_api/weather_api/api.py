@@ -9,6 +9,9 @@ def weather(request):
 
     r = requests.get(url.format(city)).json()
 
+    if r['cod'] != 200:
+        return JsonResponse({'message': 'Somemething went wrong', 'status': 'Error'})
+
     city_weather = {
         'city': city,
         'description': r['weather'][0]['description'],
